@@ -1,9 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import {
+    stateType,
+    store
+} from "./redux/state";
+import ReactDOM from "react-dom";
+import {GlobalStyle} from "./style/Global.styled";
+import {App} from "./App";
 
-ReactDOM.render(
-    <App />,
-  document.getElementById('root')
-);
+
+
+export const render = (state:stateType) => {
+    ReactDOM.render(
+        <React.StrictMode>
+            <GlobalStyle/>
+            <App state={state} dispatch={store.dispatch.bind(store)}/>
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+};
+
+render(store.getState());
+
+store.subscribe(render);
